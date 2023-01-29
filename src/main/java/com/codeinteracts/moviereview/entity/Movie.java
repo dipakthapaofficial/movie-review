@@ -1,26 +1,41 @@
 package com.codeinteracts.moviereview.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.util.Set;
 
+import org.hibernate.annotations.ColumnDefault;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Movie implements Serializable {
 
 	private static final long serialVersionUID = -8084777722578307223L;
 	
-//	@Id
-//  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
 	
 	private Float aggregatedRating;
 	
-	private BigInteger budget;
+	private BigDecimal budget;
 	
 	private String synopsis;
 	
-//	@ColumnDefault("true")
+	@ColumnDefault("true")
 	private Boolean active;
+	
+	@OneToMany(targetEntity=MovieReview.class, mappedBy="movie", cascade=CascadeType.ALL, fetch = FetchType.LAZY) 
+    private Set<MovieReview> reviews;
 
 	public Long getId() {
 		return id;
@@ -46,11 +61,11 @@ public class Movie implements Serializable {
 		this.aggregatedRating = aggregatedRating;
 	}
 
-	public BigInteger getBudget() {
+	public BigDecimal getBudget() {
 		return budget;
 	}
 
-	public void setBudget(BigInteger budget) {
+	public void setBudget(BigDecimal budget) {
 		this.budget = budget;
 	}
 

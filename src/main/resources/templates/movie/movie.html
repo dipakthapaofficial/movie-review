@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Movie</title>
+<style>
+	table {
+		border: 1px solid black;
+		width: 100%;
+	}
+	
+	th, td {
+		border: 1px solid black;
+	}
+</style>
+</head>
+<body id="user-group-page">
+	
+	<a th:href="@{/web/movie/create}" >Create</a>
+
+	<div class="table-responsive">
+		<table style="border:1px solid black;">
+			<thead>
+				<tr class="tm-bg-gray">
+					<th scope="col">Name</th>
+					<th scope="col">Synopsis</th>
+					<th scope="col">Budget</th>
+					<th scope="col">Active</th>
+					<th scope="col">&nbsp;</th>
+					<th scope="col">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="clickable" style="cursor: pointer"
+					th:each="movie : ${movies}"
+					th:href="@{'/web/movie/'+${movie.id}/update }">
+					<td class="text-center" th:text="${movie.name}" />
+					<td class="text-center" th:text="${movie.synopsis}" />
+					<td class="text-center" th:text="${movie.budget}" />
+					<td class="text-center" th:text="${movie.active}" />
+					<td class="text-center" th:text="Edit" />
+					<td class="text-center" th:text="Delete" />
+				</tr>
+				<tr th:if="${movies.size} == 0">
+					<td class="text-center" colspan="6">No Results to display</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+
+</html>

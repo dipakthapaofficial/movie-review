@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Movie Create/Update</title>
+</head>
+<body id="user-group-page">
+	
+	<form th:action="@{/web/movie/create}" method="post">
+		<input type="hidden" th:value="${id}">
+		 
+		<div style="margin-bottom: 20px;"> 
+			<label for="name">Name::</label>
+			<input type="text" name="name" th:value="${name}" required>
+		</div>
+		
+		<div style="margin-bottom: 20px;"> 
+			<label for="description">Synopsis::</label>
+			<textarea name="description" th:value="${synopsis}"></textarea>
+			<br/>
+		</div>
+		
+		<div style="margin-bottom: 20px;"> 
+			<label for="name">Budget::</label>
+			<input type="number" name="budget" th:value="${budget}">
+			<br/>
+		</div>
+		
+		<div style="margin-bottom: 20px;"> 
+			<input type="submit" value="Submit">
+		</div>
+	
+	
+	</form>
+
+</body>
+
+</html>
