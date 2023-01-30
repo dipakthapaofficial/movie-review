@@ -1,6 +1,7 @@
 package com.codeinteracts.moviereview.web.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codeinteracts.moviereview.entity.Movie;
 import com.codeinteracts.moviereview.service.MovieService;
@@ -24,6 +26,10 @@ public class MovieController {
 	
 	@GetMapping("/")
 	public String list(Model model) {
+		String message = (String) model.asMap().get("successMessage");
+		
+		model.addAttribute("successMessage", message);
+		
 		List<Movie> movies = movieService.list();
 		model.addAttribute("movies", movies);
 		return "movie/movie";
@@ -36,8 +42,26 @@ public class MovieController {
 	}
 	
 	@PostMapping("/create")
-	public String createMovie(Model model, @RequestParam String name, @RequestParam String description, @RequestParam(required = false) BigDecimal budget) {
+	public String createMovie(@RequestParam String name, @RequestParam String description, @RequestParam(required = false) BigDecimal budget,Model model,  RedirectAttributes redirectAttributes) {
+		List<String> errors = new ArrayList<>();
+		
+		if (name == null || name.isEmpty() || name.isBlank()) {
+			errors.add("Movie name can't be blank or empty");
+		}
+		
+		if (errors.size() > 0) {
+			model.addAttribute("errors", errors);
+			model.addAttribute("description", description);
+			model.addAttribute("name", name);
+			model.addAttribute("budget", budget);
+
+			model.addAttribute("hello", "hello");
+			return "movie/movie-create";
+		}
+		
 		Movie movie = movieService.create(name, description, budget);
+		
+		redirectAttributes.addFlashAttribute("successMessage", "Movie Added Successfully");
 		return "redirect:/web/movie/";
 		
 	}

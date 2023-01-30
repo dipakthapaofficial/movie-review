@@ -13,6 +13,10 @@
 		</div>
 		<div class="row">
 			<div class="col">	
+				
+				<div th:if="${successMessage}" class="alert alert-info" id="success-message-box" role="alert">
+					<span th:text="${successMessage}"></span>
+				</div>
 
 				<div class="col-lg-10 mt-5 mb-5">
 					<table class="table">
@@ -49,6 +53,15 @@
 	
 	<script th:src="@{/bootstrap/js/jquery-3.6.3.min.js}"></script>
 	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+	
+	<script>
+	
+	    var $div2 = $("#success-message-box");
+	    $div2.show();
+	    setTimeout(function() {
+	        $div2.hide();
+	    }, 10000);
+	</script>
 
 </body>
 
