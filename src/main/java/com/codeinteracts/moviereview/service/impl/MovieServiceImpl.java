@@ -15,7 +15,7 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Autowired
 	private MovieRepository movieRepository;
-
+	
 	@Override
 	public Movie create(String name, String description, BigDecimal budget) {
 		Movie movie = new Movie();
@@ -39,6 +39,7 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public Movie update(Long id, String name, String description, BigDecimal budget) {
 		Movie movie = movieRepository.findById(id).get();
+		
 		movie.setName(name);
 		movie.setSynopsis(description);
 		movie.setBudget(budget);
