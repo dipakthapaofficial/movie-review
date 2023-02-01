@@ -10,5 +10,15 @@
 	
 	<include file="movie-tables.xml" relativeToChangelogFile="true"/>
 	
-	
+	 <changeSet author="dipak" id="2023-01-29-11-15">
+	 	<addColumn tableName="users">
+	 		<column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+               </column>
+               <column name="last_name" type="VARCHAR(255)">
+                	<constraints nullable="false"/>
+               </column>
+	 	</addColumn>
+    </changeSet>
+    
 </databaseChangeLog>

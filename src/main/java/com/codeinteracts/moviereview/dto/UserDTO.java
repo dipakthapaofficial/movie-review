@@ -1,27 +1,7 @@
-package com.codeinteracts.moviereview.entity;
+package com.codeinteracts.moviereview.dto;
 
-import java.io.Serializable;
-import java.util.Set;
-
-import org.hibernate.annotations.ColumnDefault;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name="users")
-public class User implements Serializable {
-
-	private static final long serialVersionUID = -8465435978921775452L;
+public class UserDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String firstName;
@@ -34,11 +14,7 @@ public class User implements Serializable {
 
 	private String password;
 
-	@ColumnDefault("true")
 	private Boolean active;
-	
-	@OneToMany(targetEntity=MovieReview.class, mappedBy="reviewer", cascade=CascadeType.ALL, fetch = FetchType.LAZY) 
-    private Set<MovieReview> reviews;
 
 	public Long getId() {
 		return id;
@@ -95,13 +71,4 @@ public class User implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	public Set<MovieReview> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(Set<MovieReview> reviews) {
-		this.reviews = reviews;
-	}
-
 }

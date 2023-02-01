@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.codeinteracts.moviereview.dto.MovieDto;
 import com.codeinteracts.moviereview.entity.Movie;
 import com.codeinteracts.moviereview.repository.MovieRepository;
 import com.codeinteracts.moviereview.service.MovieService;
@@ -15,6 +16,12 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Autowired
 	private MovieRepository movieRepository;
+	
+	@Override
+	public Movie create(MovieDto movieDTO) {
+		Movie movie = create(movieDTO.getName(), movieDTO.getSynopsis(), movieDTO.getBudget());
+		return movie;
+	}
 	
 	@Override
 	public Movie create(String name, String description, BigDecimal budget) {
@@ -46,5 +53,6 @@ public class MovieServiceImpl implements MovieService {
 		movieRepository.save(movie);
 		return movie;
 	}
+
 
 }

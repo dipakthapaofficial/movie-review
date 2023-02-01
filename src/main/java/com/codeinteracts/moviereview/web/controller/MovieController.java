@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.codeinteracts.moviereview.dto.MovieDto;
 import com.codeinteracts.moviereview.entity.Movie;
 import com.codeinteracts.moviereview.service.MovieService;
 
@@ -37,7 +39,32 @@ public class MovieController {
 	
 	@GetMapping("/create")
 	public String create(Model model) {
+		MovieDto movie = new MovieDto();
+		model.addAttribute("movie", movie);
+		
 		return "movie/movie-create";
+		
+	}
+	
+	@PostMapping("/createDTO")
+	public String createMovie(Model model, @ModelAttribute MovieDto movieDTO, RedirectAttributes redirectAttributes) {
+		List<String> errors = new ArrayList<>();
+		
+		if (movieDTO.getName() == null || movieDTO.getName().isEmpty() || movieDTO.getName().isBlank()) {
+			errors.add("Movie name can't be blank or empty");
+		}
+		
+		if (errors.size() > 0) {
+			model.addAttribute("errors", errors);
+			model.addAttribute("movie", movieDTO);
+
+			model.addAttribute("hello", "hello");
+			return "movie/movie-create";
+		}
+		Movie movie = movieService.create(movieDTO);
+		
+		redirectAttributes.addFlashAttribute("successMessage", "Movie Added Successfully");
+		return "redirect:/web/movie/";
 		
 	}
 	
