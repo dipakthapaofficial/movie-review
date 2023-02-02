@@ -15,7 +15,7 @@ import jakarta.persistence.Transient;
 @Entity
 public class Dummy implements Serializable {
 	
-	private static final long serialVersionUID = 2738402581396333729L;
+	private static final long serialVersionUID = 8707639119629427412L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

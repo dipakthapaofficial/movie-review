@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +48,7 @@ public class MovieController {
 	}
 	
 	@PostMapping("/createDTO")
-	public String createMovie(Model model, @ModelAttribute MovieDto movieDTO, RedirectAttributes redirectAttributes) {
+	public String createMovie(Model model, @Validated @ModelAttribute MovieDto movieDTO, RedirectAttributes redirectAttributes) {
 		List<String> errors = new ArrayList<>();
 		
 		if (movieDTO.getName() == null || movieDTO.getName().isEmpty() || movieDTO.getName().isBlank()) {

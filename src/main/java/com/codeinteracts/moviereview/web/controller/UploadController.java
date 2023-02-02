@@ -79,7 +79,7 @@ public class UploadController {
 //		dummy.setFilepath(fileNameAndPath.toString());
 		
 		model.addAttribute("msg", "Uploaded images: " + fileNames.toString());
-		return "movie/upload/"+ id.toString() +"/details";
+		return "movie/upload";
 	}
 	
 	@GetMapping("/upload/{photoId}/details")
