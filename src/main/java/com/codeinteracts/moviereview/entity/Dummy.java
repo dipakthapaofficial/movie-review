@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -24,6 +25,7 @@ public class Dummy implements Serializable {
 	
 	private String name;
 	
+	@Temporal(TemporalType.DATE)
 	private LocalDate dob;
 	
 	@Transient
