@@ -17,12 +17,16 @@ import com.codeinteracts.moviereview.dto.UserDTO;
 import com.codeinteracts.moviereview.entity.User;
 import com.codeinteracts.moviereview.exception.DuplicateUserNameException;
 import com.codeinteracts.moviereview.service.UserService;
+import com.codeinteracts.moviereview.service.impl.EmailService;
 
 @Controller
 @RequestMapping("/web/user")
 public class UserController {
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	EmailService mailService;
 	
 	@GetMapping("/")
 	public String list(Model model) {
@@ -80,6 +84,8 @@ public class UserController {
 			return "user/user-create";
 		}
 		User user = userService.create(userDTO);
+		
+		mailService.sendMail(user.getEmail(), user.getUsername());
 		
 		redirectAttributes.addFlashAttribute("successMessage", "User Added Successfully");
 		return "redirect:/web/user/";
