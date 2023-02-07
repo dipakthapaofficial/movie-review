@@ -11,14 +11,21 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="users")
-@NamedQuery(name = "User.findByUsernameAndOTP", 
-	query = "SELECT u FROM User u WHERE u.username = ?1 and u.otp= ?2")
+
+@NamedQueries({
+	@NamedQuery(name = "User.findByUsernameAndOTP", 
+			query = "SELECT u FROM User u WHERE u.username = ?1 and u.otp= ?2"),
+		@NamedQuery(name = "User.findByUsernameAndPassword", 
+		query = "SELECT u FROM User u WHERE u.username = ?1 and u.password= ?2")
+})
+
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -8465435978921775452L;

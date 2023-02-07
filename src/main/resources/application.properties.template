@@ -2,6 +2,10 @@ server.port = 8090
 
 spring.jpa.hibernate.ddl-auto=update
 
+#spring security config
+spring.security.user.name=abc
+spring.security.user.password=abc
+
 #Mysql Driver
 spring.datasource.url=jdbc:mysql://localhost:3306/review_db
 spring.datasource.username=username
