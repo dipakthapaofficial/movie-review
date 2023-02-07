@@ -21,4 +21,12 @@
 	 	</addColumn>
     </changeSet>
     
+    
+    <changeSet author="dipak" id="2023-02-7-11-15">
+	 	<addColumn tableName="users">
+	 		<column name="otp" type="VARCHAR(255)"></column>
+            <column name="otp_verified" type="Boolean"></column>
+	 	</addColumn>
+    </changeSet>
+    
 </databaseChangeLog>

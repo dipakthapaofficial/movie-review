@@ -1,22 +1,29 @@
 package com.codeinteracts.moviereview.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codeinteracts.moviereview.dto.UserDTO;
 import com.codeinteracts.moviereview.entity.User;
 import com.codeinteracts.moviereview.exception.DuplicateUserNameException;
+import com.codeinteracts.moviereview.exception.OTPNotVerifiedException;
 import com.codeinteracts.moviereview.repository.UserRepository;
 import com.codeinteracts.moviereview.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
 	
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+			
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	OTPService otpService;
 
 	@Override
 	public User create(UserDTO userDTO) throws DuplicateUserNameException {
@@ -34,7 +41,15 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(userDTO.getPassword());
 		user.setUsername(userDTO.getUsername());
 		user.setActive(Boolean.TRUE);
+		
+		user.setOtp(otpService.generateOTP());
+		user.setOtpVerified(Boolean.FALSE);
+		
+		
 		userRepository.save(user);
+		
+		logger.info("\n\n\n\n {} \n\n\n", user.getOtp());
+		
 		return user;
 	}
 
@@ -52,6 +67,11 @@ public class UserServiceImpl implements UserService{
 	public User get(String username) {
 //		return userRepository.findBy(null, null);
 		return null;
+	}
+	
+	@Override
+	public User getByUsernameAndPassword(String username, String password) {
+		return userRepository.findByUsernameAndOTP(username, password);
 	}
 
 
@@ -74,6 +94,22 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findById(id).get();
 		user.setActive(Boolean.FALSE);
 		return user;
+	}
+
+	@Override
+	public User verifyOtp(UserDTO userDTO) throws OTPNotVerifiedException {
+		User user = getByUsernameAndPassword(userDTO.getUsername(), userDTO.getOtp());
+		
+		if (user == null) {
+			throw new OTPNotVerifiedException("OTP is not verified");
+		} else {
+			user.setOtpVerified(Boolean.TRUE);
+			userRepository.save(user);
+		}
+		
+		return user;
+		
+		
 	}
 
 }

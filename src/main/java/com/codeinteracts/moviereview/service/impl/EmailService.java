@@ -30,4 +30,20 @@ public class EmailService {
 		return "Successfull";
 	}
 	
+	
+	public String sendOtpMail(String userEmail, String username, String otp) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(userEmail);
+		message.setFrom(sender);
+		message.setSubject("Welcome EMAIL!!!");
+		
+		String welcomeMessage = "Hello, "+ username + ". Welcome to Movie Review Application. Your otp is <strong>"+otp+"</strong>.";
+		
+		message.setText(welcomeMessage);
+		
+//		javaMailSender.send(message);
+		
+		return "Successfull";
+	}
+	
 }

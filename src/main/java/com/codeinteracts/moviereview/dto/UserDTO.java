@@ -1,5 +1,8 @@
 package com.codeinteracts.moviereview.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class UserDTO {
 	
 	private Long id;
@@ -15,6 +18,16 @@ public class UserDTO {
 	private String password;
 
 	private Boolean active;
+	
+	private String otp;
+	
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
 
 	public Long getId() {
 		return id;

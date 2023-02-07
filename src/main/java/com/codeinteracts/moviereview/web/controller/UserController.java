@@ -16,12 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.codeinteracts.moviereview.dto.UserDTO;
 import com.codeinteracts.moviereview.entity.User;
 import com.codeinteracts.moviereview.exception.DuplicateUserNameException;
+import com.codeinteracts.moviereview.exception.OTPNotVerifiedException;
 import com.codeinteracts.moviereview.service.UserService;
 import com.codeinteracts.moviereview.service.impl.EmailService;
 
 @Controller
 @RequestMapping("/web/user")
 public class UserController {
+	
+	
 	@Autowired
 	UserService userService;
 	
@@ -47,6 +50,25 @@ public class UserController {
 		return "user/user-create";
 		
 	}
+	
+	@GetMapping("/otp/verify")
+	public String verifyOtp(Model model) {
+		UserDTO userDTO = new UserDTO();
+		model.addAttribute("user", userDTO);
+		
+		return "user/verify-otp";
+		
+	}
+	
+	@PostMapping("/otp/verify")
+	public String verifyOtp(Model model, @ModelAttribute UserDTO userDTO) throws OTPNotVerifiedException {
+		
+		User user = userService.verifyOtp(userDTO);
+		
+		return "redirect:/web/user/";
+		
+	}
+	
 	
 	@PostMapping("/create")
 	public String createMovie(Model model, @ModelAttribute UserDTO userDTO, RedirectAttributes redirectAttributes) throws DuplicateUserNameException {

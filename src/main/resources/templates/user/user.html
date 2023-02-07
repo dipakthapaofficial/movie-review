@@ -25,6 +25,7 @@
 								<th scope="col">Name</th>
 								<th scope="col">Username</th>
 								<th scope="col">Email</th>
+								<th scope="col">Otp Verified</th>
 								<th scope="col">Active</th>
 								<th scope="col">&nbsp;</th>
 								<th scope="col">&nbsp;</th>
@@ -37,6 +38,7 @@
 								<td class="text-center" th:text="${user.firstName} + ' ' + ${user.lastName}" />
 								<td class="text-center" th:text="${user.username}" />
 								<td class="text-center" th:text="${user.email}" />
+								<td class="text-center" th:text="${user.otpVerified}" />
 								<td class="text-center" th:text="${user.active}" />
 								<td class="text-center" th:text="Edit" />
 								<td class="text-center" th:text="Delete" />

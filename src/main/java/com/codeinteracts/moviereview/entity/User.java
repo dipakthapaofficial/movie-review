@@ -11,11 +11,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="users")
+@NamedQuery(name = "User.findByUsernameAndOTP", 
+	query = "SELECT u FROM User u WHERE u.username = ?1 and u.otp= ?2")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -8465435978921775452L;
@@ -33,6 +36,12 @@ public class User implements Serializable {
 	private String email;
 
 	private String password;
+	
+	private Boolean otpVerified;
+	
+//	@Getter
+//	@Setter
+	private String otp;
 
 	@ColumnDefault("true")
 	private Boolean active;
@@ -102,6 +111,22 @@ public class User implements Serializable {
 
 	public void setReviews(Set<MovieReview> reviews) {
 		this.reviews = reviews;
+	}
+
+	public Boolean getOtpVerified() {
+		return otpVerified;
+	}
+
+	public void setOtpVerified(Boolean otpVerified) {
+		this.otpVerified = otpVerified;
+	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
 
 }
