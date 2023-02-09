@@ -23,7 +23,9 @@ import jakarta.persistence.Table;
 	@NamedQuery(name = "User.findByUsernameAndOTP", 
 			query = "SELECT u FROM User u WHERE u.username = ?1 and u.otp= ?2"),
 		@NamedQuery(name = "User.findByUsernameAndPassword", 
-		query = "SELECT u FROM User u WHERE u.username = ?1 and u.password= ?2")
+		query = "SELECT u FROM User u WHERE u.username = ?1 and u.password= ?2"),
+		@NamedQuery(name = "User.findByUsername", 
+		query = "SELECT u FROM User u WHERE u.username = ?1")
 })
 
 public class User implements Serializable {
@@ -45,6 +47,8 @@ public class User implements Serializable {
 	private String password;
 	
 	private Boolean otpVerified;
+	
+	private String role;
 	
 //	@Getter
 //	@Setter
@@ -134,6 +138,14 @@ public class User implements Serializable {
 
 	public void setOtp(String otp) {
 		this.otp = otp;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

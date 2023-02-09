@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.codeinteracts.enums.UserRole;
 import com.codeinteracts.moviereview.dto.UserDTO;
 import com.codeinteracts.moviereview.entity.User;
 import com.codeinteracts.moviereview.exception.DuplicateUserNameException;
@@ -46,6 +47,7 @@ public class UserController {
 	public String create(Model model) {
 		UserDTO userDTO = new UserDTO();
 		model.addAttribute("user", userDTO);
+		model.addAttribute("roles", UserRole.values());
 		
 		return "user/user-create";
 		

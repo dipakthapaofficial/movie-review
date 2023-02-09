@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.codeinteracts.moviereview.dto.UserDTO;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	OTPService otpService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public User create(UserDTO userDTO) throws DuplicateUserNameException {
@@ -38,9 +42,10 @@ public class UserServiceImpl implements UserService{
 		user.setFirstName(userDTO.getFirstName());
 		user.setLastName(userDTO.getLastName());
 		user.setEmail(userDTO.getEmail());
-		user.setPassword(userDTO.getPassword());
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		user.setUsername(userDTO.getUsername());
 		user.setActive(Boolean.TRUE);
+		user.setRole("ROLE_USER");
 		
 		user.setOtp(otpService.generateOTP());
 		user.setOtpVerified(Boolean.FALSE);

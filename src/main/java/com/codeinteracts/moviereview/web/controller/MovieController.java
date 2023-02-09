@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -28,6 +29,7 @@ public class MovieController {
 	MovieService movieService;
 	
 	@GetMapping("/")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public String list(Model model) {
 		String message = (String) model.asMap().get("successMessage");
 		
@@ -39,6 +41,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/create")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String create(Model model) {
 		MovieDto movie = new MovieDto();
 		model.addAttribute("movie", movie);
@@ -70,6 +73,7 @@ public class MovieController {
 	}
 	
 	@PostMapping("/create")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String createMovie(@RequestParam String name, @RequestParam String description, @RequestParam(required = false) BigDecimal budget,Model model,  RedirectAttributes redirectAttributes) {
 		List<String> errors = new ArrayList<>();
 		
@@ -95,6 +99,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/{id}/details")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public String getMovieDetails(Model model, @PathVariable Long id) {
 		Movie movie = movieService.get(id);
 		model.addAttribute("movie", movie);
@@ -103,6 +108,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/{id}/update")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String update(Model model, @PathVariable Long id) {
 		Movie movie = movieService.get(id);
 		model.addAttribute("movie", movie);
@@ -111,6 +117,7 @@ public class MovieController {
 	}
 	
 	@PostMapping("/{id}/update")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String update(Model model, @PathVariable Long id, @RequestParam String name, @RequestParam String description, @RequestParam BigDecimal budget) {
 		Movie movie = movieService.update(id, name, description, budget);
 		model.addAttribute("movie", movie);
