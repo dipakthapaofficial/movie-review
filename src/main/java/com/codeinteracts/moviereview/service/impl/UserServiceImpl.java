@@ -15,6 +15,8 @@ import com.codeinteracts.moviereview.exception.OTPNotVerifiedException;
 import com.codeinteracts.moviereview.repository.UserRepository;
 import com.codeinteracts.moviereview.service.UserService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService{
 	
@@ -103,7 +105,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User verifyOtp(UserDTO userDTO) throws OTPNotVerifiedException {
-		User user = getByUsernameAndPassword(userDTO.getUsername(), userDTO.getOtp());
+		User user = userRepository.findByUsernameAndOTP(userDTO.getUsername(), userDTO.getOtp());
 		
 		if (user == null) {
 			throw new OTPNotVerifiedException("OTP is not verified");
