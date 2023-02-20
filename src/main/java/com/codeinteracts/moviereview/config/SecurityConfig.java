@@ -28,8 +28,8 @@ public class SecurityConfig {
 		.anyRequest()
 		.authenticated()
 		.and()
-		.formLogin();
-//		.httpBasic()
+//		.formLogin();
+		.httpBasic();
 //		.loginPage("login/login.html");
 		
 		return httpSecurity.build();

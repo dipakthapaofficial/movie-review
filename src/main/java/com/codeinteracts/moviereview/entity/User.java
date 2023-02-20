@@ -38,6 +38,8 @@ public class User implements Serializable {
 	
 	private String firstName;
 	
+	private String firstNameSomethinggggg;
+	
 	private String lastName;
 
 	private String username;
@@ -146,6 +148,14 @@ public class User implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getFirstNameSomethinggggg() {
+		return firstNameSomethinggggg;
+	}
+
+	public void setFirstNameSomethinggggg(String firstNameSomethinggggg) {
+		this.firstNameSomethinggggg = firstNameSomethinggggg;
 	}
 
 }
