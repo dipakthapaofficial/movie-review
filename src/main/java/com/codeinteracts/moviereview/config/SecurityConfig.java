@@ -23,6 +23,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain cofigureFilterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
+		.csrf().disable()
 		.authorizeHttpRequests()
 		.requestMatchers("/web/movie/", "/web/user/").permitAll()
 		.anyRequest()
