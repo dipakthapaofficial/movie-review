@@ -1,5 +1,6 @@
 package com.codeinteracts.moviereview.dto;
 
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,11 @@ public class UserDTO {
 	private String lastName;
 
 	private String username;
-
+	
+	@Email
+//	@EmailValidator(message="This email is not valid") 
+	//abc@gmail.com --> Valid
+	//Invalid:: abc@hotmail.com
 	private String email;
 
 	private String password;

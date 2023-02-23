@@ -2,6 +2,8 @@ package com.codeinteracts.moviereview.dto;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,11 +14,13 @@ public class MovieDto {
 	@NotNull(message = "Name field can't be empty")
 	@NotBlank(message = "Name can't be blank")
 	private String name;
-
+	
 	private Float aggregatedRating;
-
+	
+	@Min(value = 100)
+//	@Max(value = 120)
 	private BigDecimal budget;
-
+	
 	private String synopsis;
 
 	private Boolean active;

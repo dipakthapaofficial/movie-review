@@ -2,6 +2,8 @@ package com.codeinteracts.moviereview.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.codeinteracts.moviereview.dto.UserDTO;
 import com.codeinteracts.moviereview.entity.User;
 import com.codeinteracts.moviereview.exception.DuplicateUserNameException;
