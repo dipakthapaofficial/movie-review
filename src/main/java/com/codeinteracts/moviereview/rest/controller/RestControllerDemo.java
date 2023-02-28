@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.codeinteracts.moviereview.dto.LoginDTO;
 import com.codeinteracts.moviereview.entity.User;
+import com.codeinteracts.moviereview.rest.dto.UserDtoResponse;
 import com.codeinteracts.moviereview.service.UserService;
 
 import jakarta.validation.Valid;
@@ -67,19 +68,22 @@ public class RestControllerDemo {
 		return new ResponseEntity<String>("Successful", HttpStatus.CREATED);
 	}
 	
+	
 	@GetMapping("/something")
-	public ResponseEntity<String> data() {
+	public ResponseEntity<UserDtoResponse> data() {
 		logger.info("Inside getDAta method");
 		
 //		return ResponseEntity.ok("Successful");
 		
 		//Consume REST API
 //		String url = "https://www.fishwatch.gov/api/species/red-snapper";
-		String url = "http://localhost:8092/";
+		String url = "http://localhost:8092/user1";
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 //		headers.add("Authorization", "Basic YXBwbGU6YXBwbGU=");	
 		
+		
+		//Get credentials from properties file
 		String userPass = "apple:apple";
 		
 		String authParameter = Base64.getEncoder().encodeToString(userPass.getBytes());
@@ -87,17 +91,23 @@ public class RestControllerDemo {
 		
 		headers.add("Authorization", "Basic "+authParameter);	
 		
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), String.class);
+		ResponseEntity<UserDtoResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), UserDtoResponse.class);
+		
+		//Feign client
+		
+		//Service Discovery
+		
+		//JWT token, Oauth2 token
 		
 		
 //		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 		
 		logger.info("Status Code:: "+response.getStatusCode());
-		logger.info(response.getBody());
+		logger.info(response.getBody().toString());
 		
 		
 		
-		return new ResponseEntity<String>(response.getBody(), HttpStatus.CREATED);
+		return new ResponseEntity<UserDtoResponse>(response.getBody(), HttpStatus.CREATED);
 	}
 	
 	
