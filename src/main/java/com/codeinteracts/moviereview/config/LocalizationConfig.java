@@ -15,17 +15,18 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 public class LocalizationConfig implements WebMvcConfigurer {
 	
 	@Bean
-	public ResourceBundleMessageSource getMessageSource() {
-		ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-		source.setBasename("i18n/messages");
-		source.setUseCodeAsDefaultMessage(true);
-		source.setDefaultLocale(Locale.ENGLISH);
-		source.setDefaultEncoding("UTF-8");
-		return source;
+	public ResourceBundleMessageSource messageSource() {
+		ResourceBundleMessageSource resourceBundleMessageSource=new ResourceBundleMessageSource();
+	    resourceBundleMessageSource.setBasenames("i18n/messages"); // directory with messages_XX.properties
+	    resourceBundleMessageSource.setUseCodeAsDefaultMessage(true);
+	    resourceBundleMessageSource.setDefaultLocale(Locale.ENGLISH);
+	    resourceBundleMessageSource.setDefaultEncoding("UTF-8");
+	    return resourceBundleMessageSource;
 	}
+
 	
 	@Bean
-	public LocaleResolver getLocaleResolver() {
+	public LocaleResolver localeResolver() {
 		SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
 		sessionLocaleResolver.setDefaultLocale(Locale.ENGLISH);
 		return sessionLocaleResolver;
