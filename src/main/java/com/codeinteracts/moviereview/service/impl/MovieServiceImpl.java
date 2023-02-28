@@ -52,7 +52,14 @@ public class MovieServiceImpl implements MovieService {
 	public Movie get(Long id) {
 		return movieRepository.findById(id).get();
 	}
-
+	
+	@Override
+	public Movie update(MovieDto movieDTO) {
+		Movie movie = create(movieDTO.getName(), movieDTO.getSynopsis(), movieDTO.getBudget());
+		movieRepository.save(movie);
+		return movie;
+	}
+	
 	@Override
 	public Movie update(Long id, String name, String description, BigDecimal budget) {
 		Movie movie = movieRepository.findById(id).get();

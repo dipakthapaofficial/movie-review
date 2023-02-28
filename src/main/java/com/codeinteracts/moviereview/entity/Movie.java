@@ -2,6 +2,7 @@ package com.codeinteracts.moviereview.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -35,7 +36,7 @@ public class Movie implements Serializable {
 	private Boolean active;
 	
 	@OneToMany(targetEntity=MovieReview.class, mappedBy="movie", cascade=CascadeType.ALL, fetch = FetchType.LAZY) 
-    private Set<MovieReview> reviews;
+    private Set<MovieReview> reviews  = new HashSet<MovieReview>(0);
 
 	public Long getId() {
 		return id;
@@ -85,5 +86,12 @@ public class Movie implements Serializable {
 		this.active = active;
 	}
 
+	public Set<MovieReview> getReviews() {
+		return reviews;
+	}
 
+	public void setReviews(Set<MovieReview> reviews) {
+		this.reviews = reviews;
+	}
+	
 }

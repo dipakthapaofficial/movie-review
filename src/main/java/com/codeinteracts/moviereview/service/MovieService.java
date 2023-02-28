@@ -21,5 +21,7 @@ public interface MovieService {
 	Movie create(MovieDto movie);
 
 	Page<Movie> list(Integer pageNumber, Integer pageSize);
+
+	Movie update(MovieDto movieDTO);
 	
 }
