@@ -34,6 +34,9 @@ public class RestControllerDemo {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	RestTemplate restTemplate;
+	
 	@GetMapping("/hello")
 	String sayHello() {
 		return  "Hello";
@@ -78,7 +81,7 @@ public class RestControllerDemo {
 		//Consume REST API
 //		String url = "https://www.fishwatch.gov/api/species/red-snapper";
 		String url = "http://localhost:8092/user1";
-		RestTemplate restTemplate = new RestTemplate();
+//		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 //		headers.add("Authorization", "Basic YXBwbGU6YXBwbGU=");	
 		
@@ -92,6 +95,8 @@ public class RestControllerDemo {
 		headers.add("Authorization", "Basic "+authParameter);	
 		
 		ResponseEntity<UserDtoResponse> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), UserDtoResponse.class);
+		
+		
 		
 		//Feign client
 		
