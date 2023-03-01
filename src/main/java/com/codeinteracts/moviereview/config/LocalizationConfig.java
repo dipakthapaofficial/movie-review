@@ -19,6 +19,10 @@ public class LocalizationConfig implements WebMvcConfigurer {
 		ResourceBundleMessageSource resourceBundleMessageSource=new ResourceBundleMessageSource();
 	    resourceBundleMessageSource.setBasenames("i18n/messages"); // directory with messages_XX.properties
 	    resourceBundleMessageSource.setUseCodeAsDefaultMessage(true);
+	    
+	    // here's something 
+	    // Something again
+	    
 	    resourceBundleMessageSource.setDefaultLocale(Locale.ENGLISH);
 	    resourceBundleMessageSource.setDefaultEncoding("UTF-8");
 	    return resourceBundleMessageSource;
